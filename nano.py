@@ -18,7 +18,9 @@ def read(url):
 @click.argument("url")
 @click.argument("content")
 def post(url, content):
-    if requests.post(url + "/post", data={'content': content}).ok:
+    username = input("Username: ")
+    password = input("Password: ")
+    if requests.post(url + "/post", data={'content': content}, auth=(username, password)).ok:
        click.echo("Successfully made a post!")
     else:
        click.echo("Couldn't make a post.")
@@ -28,7 +30,9 @@ def post(url, content):
 @click.argument("content")
 @click.argument("postid")
 def edit(url, content, postid):
-    if requests.post(url + "/edit?id=" + postid, data={'content': content}).ok:
+    username = input("Username: ")
+    password = input("Password: ")
+    if requests.post(url + "/edit?id=" + postid, data={'content': content}, auth=(username, password)).ok:
        click.echo("Post #" + postid + " has been edited.")
     else:
        click.echo("Couldn't edit a post.")
@@ -37,9 +41,11 @@ def edit(url, content, postid):
 @click.argument("url")
 @click.argument("postid")
 def delete(url, postid):
+    username = input("Username: ")
+    password = input("Password: ")
     yorn = input("Are you sure? (Y/N)")
     if yorn == "y":
-        if requests.get(url + "/delete?id=" + postid).ok:
+        if requests.get(url + "/delete?id=" + postid, auth=(username, password)).ok:
             click.echo("Post #" + postid + " has been deleted.")
         else:
             click.echo("Couldn't delete a post.")
