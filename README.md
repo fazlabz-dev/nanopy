@@ -13,7 +13,7 @@ Open your terminal and type `pip install -r requirements.txt`.
 python nano.py post https://localhost "wow"
 ```
 
-If you want to cross-post to imood.com, type this instead:
+If you want to cross-post to [imood.com](https://imood.com), type this instead:
 
 ```sh
 python nano.py post https://localhost "wow" --imood="true"
