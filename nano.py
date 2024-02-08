@@ -17,11 +17,19 @@ def read(url):
 @group.command(help="Creates a new post.")
 @click.argument("url")
 @click.argument("content")
-def post(url, content):
+@click.option("--imood", default="true", help="Cross-post to imood.com")
+def post(url, content, imood):
     username = input("Username: ")
     password = input("Password: ")
+    if imood == "true":
+        imood_email = input("Email for imood.com: ")
+        imood_password = input("Password for imood.com: ")
+        imood_face = input("Mood face: ")
+        imood_feeling = input("How are you feeling while posting this? ")
     if requests.post(url + "/post", data={'content': content}, auth=(username, password)).ok:
        click.echo("Successfully made a post!")
+       if imood == "true" and requests.post("https://xml.imood.org/update.cgi?email=" + imood_email + "&password=" + imood_password, data={'personal': content, 'base': imood_feeling, 'face': imood_face}).ok:
+           click.echo("Successfully cross-posted to imood.com!")
     else:
        click.echo("Couldn't make a post.")
 
