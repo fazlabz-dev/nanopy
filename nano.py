@@ -27,9 +27,11 @@ def post(url, content, imood):
         imood_face = input("Mood face: ")
         imood_feeling = input("How are you feeling while posting this? ")
     if requests.post(url + "/post", data={'content': content}, auth=(username, password)).ok:
-       click.echo("Successfully made a post!")
-       if imood == "true" and requests.post("https://xml.imood.org/update.cgi?email=" + imood_email + "&password=" + imood_password, data={'personal': content, 'base': imood_feeling, 'face': imood_face}).ok:
-           click.echo("Successfully cross-posted to imood.com!")
+        click.echo("Successfully made a post!")
+        if imood == "true" and requests.get("https://xml.imood.org/update.cgi?email=" + imood_email + "&password=" + imood_password + "&base=" + imood_feeling + "&face=" + imood_face + "&personal=" + content).ok:
+            click.echo("Successfully cross-posted to imood.com!")
+        else:
+            click.echo("Couldn't cross-post to imood.com")
     else:
        click.echo("Couldn't make a post.")
 
