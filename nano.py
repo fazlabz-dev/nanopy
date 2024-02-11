@@ -17,7 +17,7 @@ def read(url):
 @group.command(help="Creates a new post.")
 @click.argument("url")
 @click.argument("content")
-@click.option("--imood", default="true", help="Cross-post to imood.com")
+@click.option("--imood", default="false", help="Cross-post to imood.com")
 def post(url, content, imood):
     username = input("Username: ")
     password = input("Password: ")
